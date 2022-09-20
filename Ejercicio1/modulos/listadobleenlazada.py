@@ -13,7 +13,19 @@ class ListaDobleEnlazada:
     def __init__ (self):
         self.nodo_inicial = None
     
-    #verifica si la lista esta vacia    
+    @property
+    def nodo_inicial(self):
+        return self._nodo_inicial
+    
+    @nodo_inicial.setter
+    def nodo_inicial(self,nodo):
+        if nodo is None:
+            self._nodo_inicial = None
+        else:
+            self._nodo_inicial = nodo
+    
+    #verifica si la lista esta vacia
+    @property    
     def esta_vacia(self):
         esta_vacia = False
         if self.nodo_inicial is None:
@@ -21,6 +33,7 @@ class ListaDobleEnlazada:
         return esta_vacia
     
     #devuelve la cantidad de items de la lista
+    #@property
     def tamanio(self):
         tamanio = 0
         n = self.nodo_inicial
@@ -30,6 +43,7 @@ class ListaDobleEnlazada:
         return tamanio
             
     #agrega un elemento al inicio de la lista
+    # @property
     def agregar(self,dato):
         if self.nodo_inicial is None:
             nuevo_nodo = Node(dato)
@@ -41,6 +55,7 @@ class ListaDobleEnlazada:
         self.nodo_inicial = nuevo_nodo
         
     #insertar elementos al final
+    # @property
     def anexar(self,dato):
         if self.nodo_inicial is None:
             nuevo_nodo = Node(dato)
@@ -54,6 +69,7 @@ class ListaDobleEnlazada:
         nuevo_nodo.pref = n
         
     #insertar un nuevo elemento en una posicion
+    # @property
     def insertar(self,posicion,dato):
         pos=0
         n = self.nodo_inicial
@@ -70,28 +86,57 @@ class ListaDobleEnlazada:
                 n.pref.nref = nuevo_nodo # si el nodo anterior no es el primero, tengo q decirle a su nref que el siguiente dato es el nuevo
             n.pref = nuevo_nodo #finalmente le digo al dato que estaba en n que su dato anterior es el nuevo dato
             
-    #elimina y devuelve el item en posicion o el ultimo en su defecto        
-    def extraer(self,posicion = None):
-        if self.esta_vacia():
-            print("lista vacia")
-        else:
-            n = self.nodo_inicial
-            if posicion is None:
-                while n.nref is not None:
-                    n = n.nref
-            else:
-                pos=0 
-                while pos <= posicion and n is not None:
-                    n = n.nref
-                    pos += 1
-                if n is None:
-                    print("no existe posicion")
-                else:
-                    #falta conciderar los extremos
-                    n.pref.nref = n.nref
-                    n.nref.pref = n.pref          
-            return n
+    #elimina y extrae
+    # @property        
+    def extraer(self,*posicion):
+        if len(posicion)==0: #elimina y devuelve el item en ultimo posicion
+            if self.esta_vacia:
+                print("lista vacia")
+                return
+            n = self.nodo_inicial 
+            if n.nref is None:
+                self.nodo_inicial = None
+                return n.item
+            while n.nref is not None:
+                n = n.nref
+            n.pref.nref = None
+            return n.item
+        else: #elimina y devuelve el item en la posicion enviada
+            #aca hay q hacer la otra aprte
+            return n.item
+            
+    #elimina y devuelve el item en la posicion
+    # def extraer(self,posicion):
+    #     if self.esta_vacia:
+    #         print("lista vacia")
+    #     else:
+    #         n = self.nodo_inicial
+    #         # if posicion is None:
+    #         #     while n.nref is not None:
+    #         #         n = n.nref
+    #         # else:
+    #         pos=0 
+    #         while pos <= posicion and n is not None:
+    #             n = n.nref
+    #             pos += 1
+    #         if n is None:
+    #             print("no existe posicion")
+    #         else:
+    #             #falta conciderar los extremos
+    #             n.pref.nref = n.nref
+    #             n.nref.pref = n.pref          
+    #         return n
         
     #Realiza una copia de la lista elemento a elemento y devuelve la copia
+    # @property
     def copiar(self):
+        copia_lista = ListaDobleEnlazada
+        n = self.nodo_inicial
+        while n is not None:
+            copia_lista.nodo_inicial = n
+            n = n.nref
+        return copia_lista
+   
+
+         
         
