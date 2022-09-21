@@ -102,39 +102,27 @@ class ListaDobleEnlazada:
             n.pref.nref = None
             return n.item
         else: #elimina y devuelve el item en la posicion enviada
-            #aca hay q hacer la otra aprte
-            return n.item
-            
-    #elimina y devuelve el item en la posicion
-    # def extraer(self,posicion):
-    #     if self.esta_vacia:
-    #         print("lista vacia")
-    #     else:
-    #         n = self.nodo_inicial
-    #         # if posicion is None:
-    #         #     while n.nref is not None:
-    #         #         n = n.nref
-    #         # else:
-    #         pos=0 
-    #         while pos <= posicion and n is not None:
-    #             n = n.nref
-    #             pos += 1
-    #         if n is None:
-    #             print("no existe posicion")
-    #         else:
-    #             #falta conciderar los extremos
-    #             n.pref.nref = n.nref
-    #             n.nref.pref = n.pref          
-    #         return n
-        
+            pos = 0
+            n = self.nodo_inicial
+            while pos < posicion[0] and n is not None:
+                n = n.nref
+                pos += 1
+            if n is None:
+                print("no existe posicion")
+            else:
+                if n.nref is None:
+                    n.pref.nref = None
+                else:
+                    n.pref.nref = n.nref
+                    n.nref.pref = n.pref
+                return n.item
+             
     #Realiza una copia de la lista elemento a elemento y devuelve la copia
-    # @property
+    #@property
     def copiar(self):
-        copia_lista = ListaDobleEnlazada
-        n = self.nodo_inicial
-        while n is not None:
-            copia_lista.nodo_inicial = n
-            n = n.nref
+        copia_lista = ListaDobleEnlazada()
+        copia_lista.anexar(self._nodo_inicial.item)   
+            
         return copia_lista
    
 
