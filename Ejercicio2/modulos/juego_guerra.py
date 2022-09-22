@@ -40,3 +40,34 @@ class JuegoGuerra:
             carta.append(palos[random.randint(0, 3)])
             return carta
         
+        def jugar(self):
+            turno = 0
+            guerra = False
+            #while (self.jugador1.tamanio()==0 or self.jugador2.tamanio()==0):
+            while (turno<2):    
+                if (guerra):
+                    print("Guerra!")
+                    guerra=False
+                print("-------------------------------------------")
+                print(f'Turno: {turno}')
+                print("Jugador 1:")
+                for j in range(1, self.jugador1.tamanio()+1):
+                    if j%10 == 0 :
+                        fin_de_linea = '\n'
+                    else:
+                        fin_de_linea = ""
+                    print("-X",end=fin_de_linea)
+                print("")    
+                print("Jugador 2:")
+                for j in range(1, self.jugador2.tamanio()+1):
+                    if j%10 == 0 :
+                        fin_de_linea = '\n'
+                    else:
+                        fin_de_linea = ""
+                    print("-X",end=fin_de_linea)
+                print("")
+                turno+=1
+                
+                
+                
+        
