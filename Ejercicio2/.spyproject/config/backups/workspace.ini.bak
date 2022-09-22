@@ -4,7 +4,7 @@ save_data_on_exit = True
 save_history = True
 save_non_project_files = False
 project_type = 'empty-project-type'
-recent_files = ['modulos\\LDE.py', 'modulos\\juego_guerra.py', 'pruebas\\test_LDE.py']
+recent_files = ['modulos\\juego_guerra.py', 'modulos\\listadobleenlazada.py', 'modulos\\node.py']
 
 [main]
 version = 0.2.0

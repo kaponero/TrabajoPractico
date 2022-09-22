@@ -5,7 +5,7 @@ Created on Wed Sep 21 18:03:38 2022
 @author: kapon
 """
 
-from listadobleenlazada import ListaDobleEnlazada
+from LDE import ListaDobleEnlazada
 import random
 
 valores = ['2','3','4','5','6','7','8','9','10','J','Q','K','A']
@@ -42,12 +42,17 @@ class JuegoGuerra:
         
         def jugar(self):
             turno = 0
-            guerra = False
-            #while (self.jugador1.tamanio()==0 or self.jugador2.tamanio()==0):
-            while (turno<2):    
-                if (guerra):
+            en_juego = []
+            while (self.jugador1.tamanio()!=0 or self.jugador2.tamanio()!=0):
+            #while (turno<2):
+                en_juego.append(self.jugador1.extraer())
+                en_juego.append(self.jugador2.extraer())
+                
+                if en_juego[len(en_juego)-2][0]=='A' and en_juego[len(en_juego)-1][0]=='A' or en_juego[len(en_juego)-2][0]==en_juego[len(en_juego)-1][0]:
                     print("Guerra!")
-                    guerra=False
+                    turno+=1
+                    continue
+
                 print("-------------------------------------------")
                 print(f'Turno: {turno}')
                 print("Jugador 1:")
@@ -56,15 +61,24 @@ class JuegoGuerra:
                         fin_de_linea = '\n'
                     else:
                         fin_de_linea = ""
-                    print("-X",end=fin_de_linea)
-                print("")    
+                    print("-X ",end=fin_de_linea)
+                    
+                print("")
+                print("            ",end="")
+                print(en_juego[len(en_juego)-2][0] + en_juego[len(en_juego)-2][1] + " ",end="")
+                print(en_juego[len(en_juego)-1][0] + en_juego[len(en_juego)-1][1])
+                print("")
+                
+                if en_juego[len(en_juego)-2][0]>en_juego[len(en_juego)-1][0]:
+                        self.jugador1.agregar(en_juego.pop())
+                        self.jugador1.agregar(en_juego.pop())
                 print("Jugador 2:")
                 for j in range(1, self.jugador2.tamanio()+1):
                     if j%10 == 0 :
                         fin_de_linea = '\n'
                     else:
                         fin_de_linea = ""
-                    print("-X",end=fin_de_linea)
+                    print("-X ",end=fin_de_linea)
                 print("")
                 turno+=1
                 
