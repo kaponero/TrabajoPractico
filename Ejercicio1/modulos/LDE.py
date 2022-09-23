@@ -10,7 +10,15 @@ class Nodo:
         self.dato = data
         self.siguiente = None
         self.anterior = None
-
+        
+    def __str__(self):
+        return str(self.dato)
+        
+class InsertarListaError(Exception):
+    """error al ingresar valor negativo"""
+    
+class ExtraerListaError(Exception):
+        """error al extraer"""
 
 class ListaDobleEnlazada:
     
@@ -100,6 +108,12 @@ class ListaDobleEnlazada:
         if posicion == self.tamanio:
             self.anexar(dato)
             return
+        if posicion < 0:
+            raise InsertarListaError("La posicion no puede ser negativa")
+            return
+        if posicion > self.tamanio:
+            raise InsertarListaError("No existe posicion")
+            return
         
         while pos < posicion:
             pos += 1
@@ -115,7 +129,7 @@ class ListaDobleEnlazada:
     def extraer(self,*posicion):
         if len(posicion)==0: #elimina y devuelve el item en ultimo posicion
             if self.esta_vacia:
-                print("lista vacia")
+                raise ExtraerListaError("La lista esta vacia")
                 return
             n = self.cabeza 
             if n.siguiente is None:
@@ -124,8 +138,19 @@ class ListaDobleEnlazada:
             n = self.cola
             n.anterior.siguiente = None
             self.cola = n.anterior
-            return n.dato
-        else: #elimina y devuelve el item en la posicion enviada
+            return n
+        #else: #elimina y devuelve el item en la posicion enviada
+        
+        elif posicion[0]==0:
+            n = self.cabeza
+            n.siguiente.anterior = None
+            self.cabeza = n.siguiente
+            return n
+        elif posicion[0] < 0:
+            raise ExtraerListaError("La posicion no puede ser negativa")
+        elif posicion[0] >= self.tamanio:
+            raise ExtraerListaError("No existe posicion")
+        else:
             pos = 0
             n = self.cabeza
             while pos < posicion[0] and n is not None:
@@ -139,7 +164,7 @@ class ListaDobleEnlazada:
                 else:
                     n.anterior.siguiente = n.siguiente
                     n.siguiente.anterior = n.anterior
-                return n.dato
+                return n
              
 #---- Realiza una COPIA de la lista elemento a elemento y devuelve la copia-------
     def copiar(self):
@@ -221,8 +246,18 @@ class ListaDobleEnlazada:
             n = n.siguiente
             
 
-
-
+#---------------sobrecarga de str para mostrar por pantalla---------
+    def __str__(self):
+        nodo = self.cabeza
+        cadena = '['
+        while nodo.siguiente is not None:
+            cadena += str(nodo.dato) +', '
+            nodo = nodo.siguiente
+        cadena += str(nodo.dato) + ']'
+        return cadena
+    
+    
+    
 # lista = ListaDobleEnlazada()
 # lista.agregar(20)
 # lista.agregar(22)
