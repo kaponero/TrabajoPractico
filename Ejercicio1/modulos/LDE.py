@@ -185,6 +185,7 @@ class ListaDobleEnlazada:
         q = p.siguiente
         p.siguiente = None
         p.anterior = q
+        self.cola=self.cabeza
         while q is not None:
             q.anterior = q.siguiente
             q.siguiente = p
