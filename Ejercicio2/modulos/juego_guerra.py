@@ -33,6 +33,16 @@ class Carta:
         boca_abajo = True
         print('X')
 #----------------------------------------
+class Mazo:
+    def __init__(self):
+        self.cartas = ListaDobleEnlazada()
+        
+    def Mezclar(self):
+        for valor in valores:
+            for palo in palos:
+                carta=Carta(valor,palo)
+                self.cartas.anexar(carta)
+
 
 class JuegoGuerra:
         
