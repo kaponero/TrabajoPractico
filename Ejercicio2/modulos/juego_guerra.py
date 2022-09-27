@@ -30,7 +30,7 @@ class Carta:
         return cadena
             
     def poner_boca_abajo(self):
-        return " -X"
+        return "-X"
         
     def __str__(self):
         cadena=self.valor + " "+ self.palo
@@ -108,18 +108,20 @@ class JuegoGuerra:
             carta1.boca_abajo = False
             carta2.boca_abajo = False
             cartas_en_mesa.anexar(carta1)
-            cartas_en_mesa.anexar(carta2)
+            cartas_en_mesa.anexar(carta1)
+            carta2 = carta1
             
             # for para mostrar las cartas de jugador 1 boca abajo
 
 #----------------logica de guerra----------------------------------------------
             if carta1.valor == carta2.valor:
                 self.guerra=True
-                for n in range(1,3):
+                for n in range(1,3): #si hay guerra sacamos 3 cartas boca abajo
                     carta1 = self.jugador1.extraer().dato
                     carta2 = self.jugador2.extraer().dato
                     cartas_en_mesa.anexar(carta1)
                     cartas_en_mesa.anexar(carta2)
+                #y sacamos una carta boca arriba
                 carta1 = self.jugador1.extraer().dato
                 carta2 = self.jugador2.extraer().dato
                 carta1.boca_abajo = False
@@ -134,7 +136,7 @@ class JuegoGuerra:
                     fin = ''
             # print(carta.dato.is_boca_abajo(), end=fin)
                 if (carta.dato.boca_abajo):
-                    print(carta.dato.poner_boca_abajo(), end=fin)
+                    print(" "+carta.dato.poner_boca_abajo(), end=fin)
                 contador += 1
 
             print("\n")
@@ -159,7 +161,7 @@ class JuegoGuerra:
                     fin = ''
                 # print(carta.dato.is_boca_abajo(), end=fin)
                 if (carta.dato.boca_abajo):
-                    print(carta.dato.poner_boca_abajo(), end=fin)
+                    print(" "+carta.dato.poner_boca_abajo(), end=fin)
                 contador += 1
             print("\n")
             print("-------------------------------------------------")
