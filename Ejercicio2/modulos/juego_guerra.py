@@ -30,7 +30,8 @@ class Carta:
             
     def is_boca_abajo(self):
         boca_abajo = True
-        print('X')
+        return " -X"
+        # print('-X', end=' ')
         
     def __str__(self):
         cadena=self.valor + " "+ self.palo
@@ -50,23 +51,82 @@ class Mazo:
         random.shuffle(cartas_ordenadas)
         for carta in cartas_ordenadas:
             self.cartas.anexar(carta)
-            
-
+ 
         def __str__(self):
            return str(self.cartas)
-            
-
-    def Mostrar_Mazo(self):
+          
+      
+#----------- Clase Juego de Guerra --------------       
+class JuegoGuerra:
         
-        print(self.cartas)
+        def __init__ (self,semilla):
+            random.seed(semilla)
+            self.turnos_jugados = 0
+            self.empate = False
+            self.jugador1 = ListaDobleEnlazada()
+            self.jugador2 = ListaDobleEnlazada()
+
+# repartimos el mazo en las dos barajas para cada jugador
+        def repartir_cartas(self, mazo):
+            # repartimos las cartas a cada jugador
+            while mazo.cartas.tamanio > 2:
+                self.jugador1.anexar(mazo.cartas.extraer().dato)
+                self.jugador2.anexar(mazo.cartas.extraer().dato)
+            # aca hay un error con la ultima carta y por eso lo hacemos aparte
+            self.jugador1.anexar(mazo.cartas.extraer().dato)
+            print(mazo.cartas.tamanio)
+            self.jugador2 + mazo.cartas
+            # mostramos las cartas de ambos jugadores
+            print(self.jugador1) 
+            print(self.jugador2) 
+        
+        # FUNCION inicio del juego
+        def iniciar_juego(self):
+             mazo = Mazo() #creamos mazo
+             mazo.Mezclar() #mezclamos mazo
+             self.repartir_cartas(mazo) 
+             
+             # iniciamos TURNOS de combate
+             # while self.jugador1.tamanio > 0 or self.jugador2.tamanio > 0:
+             self.turnos_jugados += 1 #contador de turnos
+             
+             print("-------------------------------------------------") #esto es una barra separadora
+             print("Turno: " + str(self.turnos_jugados))
+             print("Jugador 1: ")
+             fin = ''
+             contador = 1
+             # extraemos las cartas de arriba de cada jugador
+             carta1 = self.jugador1.extraer().dato
+             carta2 = self.jugador2.extraer().dato
+             # for para mostrar las cartas de jugador 1 boca abajo
+             for carta in self.jugador1:
+                 if contador%10 == 0: # logica para mostrar las cartas boca abajo en filas de a 10
+                     fin = '\n'
+                 else:
+                     fin = ''
+                 print(carta.dato.is_boca_abajo(), end=fin)
+                 contador += 1
+
+             print("\n")
+             print(f'          {carta1}  {carta2}') # mostramos las cartas que combaten
+             
+             # for para mostrar las cartas de jugador 1 boca abajo                
+             print("\n" + "Jugador 2: ")
+             fin = ''
+             contador = 1
+             for carta in self.jugador2:
+                 if contador%10 == 0:
+                     fin = '\n'
+                 else:
+                     fin = ''
+                 print(carta.dato.is_boca_abajo(), end=fin)
+                 contador += 1
+             print("\n")
+             print("-------------------------------------------------")
 
 # class JuegoGuerra:
         
-#         def __init__ (self,semilla):
-#             random.seed(semilla)
-#             self.jugador1 = ListaDobleEnlazada()
-#             self.jugador2 = ListaDobleEnlazada()
-            
+          
 #         def masos(self):
 #             maso = [self.genera_carta()] 
 #             i=1
@@ -135,29 +195,28 @@ class Mazo:
 if __name__ == "__main__":
     
 
-  car = Carta('2','♥')       
-  #car.mostrar_carta()    
-  #car.is_boca_arriba()    
-  car.is_boca_abajo()            
+#   car = Carta('2','♥')       
+#   #car.mostrar_carta()    
+#   #car.is_boca_arriba()    
+#   car.is_boca_abajo()            
                             
 
-  car = Carta('2','♥')
-  print(car)       
-  #car.mostrar_carta()    
-  #car.is_boca_arriba()    
-  car.is_boca_abajo()
+#   car = Carta('2','♥')
+#   print(car)       
+#   #car.mostrar_carta()    
+#   #car.is_boca_arriba()    
+#   car.is_boca_abajo()
  
  
-cartitas=ListaDobleEnlazada()
-cartitas.anexar(Carta(valores[0],palos[0]))
-cartitas.anexar(Carta(valores[2],palos[3])) 
-print(cartitas)
-mazo = Mazo()  
-mazo.Mezclar()
-print(mazo.cartas.extraer(0))
- 
+    # cartitas=ListaDobleEnlazada()
+    # cartitas.anexar(Carta(valores[0],palos[0]))
+    # cartitas.anexar(Carta(valores[2],palos[3])) 
+    # print(cartitas)
+    # mazo = Mazo()  
+    # mazo.Mezclar()
+    # print(mazo.cartas.extraer(0))      
                 
-                
-                
-
+    m = JuegoGuerra(45)
+    m.iniciar_juego()
+    
         
