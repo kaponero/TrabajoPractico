@@ -10,6 +10,9 @@ import random
 
 valores = ['2','3','4','5','6','7','8','9','10','J','Q','K','A']
 palos = ['♠', '♥', '♦', '♣']
+boca_arriba = False
+boca_abajo = False
+
 
 #clase CARTA
 class Carta:
