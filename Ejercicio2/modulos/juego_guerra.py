@@ -32,8 +32,15 @@ class Carta:
         boca_abajo = True
         print('X')
         
+<<<<<<< HEAD
         
 #----------- Clase MAZO ------------
+=======
+    def __str__(self):
+        cadena=self.valor + " "+ self.palo
+        return cadena
+#----------------------------------------
+>>>>>>> cae463bc9fb5a9693e647efa5e09aa064caf5dc4
 class Mazo:
     def __init__(self):
         self.cartas = ListaDobleEnlazada()
@@ -48,6 +55,13 @@ class Mazo:
         for carta in cartas_ordenadas:
             self.cartas.anexar(carta)
             
+<<<<<<< HEAD
+=======
+        def __str__(self):
+           return str(self.cartas)
+            
+                
+>>>>>>> cae463bc9fb5a9693e647efa5e09aa064caf5dc4
 
     def Mostrar_Mazo(self):
         
@@ -127,9 +141,30 @@ class Mazo:
 # #PRUEBAS
 # if __name__ == "__main__":
     
+<<<<<<< HEAD
   # car = Carta('2','♥')       
   # #car.mostrar_carta()    
   # #car.is_boca_arriba()    
   # car.is_boca_abajo()            
                             
+=======
+ car = Carta('2','♥')
+ print(car)       
+ #car.mostrar_carta()    
+ #car.is_boca_arriba()    
+ car.is_boca_abajo()
+ 
+ 
+ cartitas=ListaDobleEnlazada()
+ cartitas.anexar(Carta(valores[0],palos[0]))
+ cartitas.anexar(Carta(valores[2],palos[3])) 
+ print(cartitas)
+ mazo = Mazo()  
+ mazo.Mezclar()
+ print(mazo.cartas.extraer(0))
+ 
+                
+                
+                
+>>>>>>> cae463bc9fb5a9693e647efa5e09aa064caf5dc4
         
