@@ -177,6 +177,7 @@ class ListaDobleEnlazada:
                 else:
                     n.anterior.siguiente = n.siguiente
                     n.siguiente.anterior = n.anterior
+<<<<<<< HEAD
                 self._tamanio-=1    
                 return n    
         
@@ -221,6 +222,36 @@ class ListaDobleEnlazada:
     #                 n.anterior.siguiente = n.siguiente
     #                 n.siguiente.anterior = n.anterior
     #             return n
+=======
+                return n
+ #ESTE ES EL METODO QUE YO (GAby) HABIA PROBADO, PERO EL TEST_EXTRAER_EXTREMOS NO FUNCIONA, EL ERROR QUE ME TIRA ES :AttributeError: 'int' object has no attribute 'dato',
+ #no se porque, porque si esta dando un dato
+ # def extraer(self,posicion):
+    #     # Verificación de los límites
+    #         if (posicion < 0) or (posicion >= self.tamanio):
+    #             raise IndexError("Índice fuera de rango")
+    #     # Si no se recibió i, se devuelve el último.
+    #         if posicion == None:
+    #             posicion = self.tamanio - 1
+    #     # Caso particular, si es el primero,hay que saltar la cabecera de la lista
+    #         if posicion == 0:
+    #             data = self.cabeza.dato
+    #             self.cabeza = self.cabeza.siguiente
+    #     #porcion de codigo correspondiente a la busqueda
+    #         nodo_ant = self.cabeza
+    #         nodo_actual =nodo_ant.siguiente
+    #         for pos in range(1, posicion):
+    #             nodo_ant = nodo_actual
+    #             nodo_actual = nodo_ant.siguiente
+                
+    #     # Guarda el dato y elimina el nodo a borrar
+    #         data = nodo_actual.dato
+    #         nodo_ant.siguiente = nodo_actual.siguiente
+    #     # hay que restar 1 de tamanio
+    #         self._tamanio = self._tamanio - 1
+    #     # y devolver el valor borrado
+    #         return data
+>>>>>>> aae8f4aedc63a151088a9945400ffc971404e7c2
              
 #---- Realiza una COPIA de la lista elemento a elemento y devuelve la copia-------
     def copiar(self):
