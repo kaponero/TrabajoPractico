@@ -21,6 +21,14 @@ class Carta:
         
     def mostrar_carta(self):
       print(self.valor + self.palo)
+    
+    def is_boca_arriba(self):
+         boca_arriba = True
+         self.mostrar_carta()
+            
+    def is_boca_abajo(self):
+        boca_abajo = True
+        print('X')
 #----------------------------------------
 
 class JuegoGuerra:
@@ -95,10 +103,12 @@ class JuegoGuerra:
                 turno+=1
  
 #PRUEBAS
- if __name__ == "__main__":
+if __name__ == "__main__":
     
  car = Carta('2','♥')       
- car.mostrar_carta()    
+ #car.mostrar_carta()    
+ #car.is_boca_arriba()    
+ car.is_boca_abajo() 
                 
                 
                 
