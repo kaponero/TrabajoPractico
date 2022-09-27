@@ -38,11 +38,14 @@ class Mazo:
         self.cartas = ListaDobleEnlazada()
         
     def Mezclar(self):
+        cartas_ordenadas = []
         for valor in valores:
             for palo in palos:
                 carta=Carta(valor,palo)
-                self.cartas.anexar(carta)
-
+                cartas_ordenadas.append(carta)
+        random.shuffle(cartas_ordenadas)
+        for carta in cartas_ordenadas:
+            self.cartas.anexar(carta)
 
 class JuegoGuerra:
         
