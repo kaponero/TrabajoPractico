@@ -20,18 +20,17 @@ class Carta:
     def __init__ (self,val,pal):
         self.valor = val
         self.palo = pal
+        self.boca_abajo = True
         
     def mostrar_carta(self):
       print(self.valor + self.palo)
     
-    def is_boca_arriba(self):
-         boca_arriba = True
-         self.mostrar_carta()
+    def poner_boca_arriba(self):
+        cadena=self.valor + " "+ self.palo
+        return cadena
             
-    def is_boca_abajo(self):
-        boca_abajo = True
+    def poner_boca_abajo(self):
         return " -X"
-        # print('-X', end=' ')
         
     def __str__(self):
         cadena=self.valor + " "+ self.palo
@@ -41,6 +40,10 @@ class Carta:
 class Mazo:
     def __init__(self):
         self.cartas = ListaDobleEnlazada()
+        self.ganador1 = False
+        self.ganador2 = False
+        self.empate = False
+      
         
     def Mezclar(self):
         cartas_ordenadas = []
@@ -65,6 +68,7 @@ class JuegoGuerra:
             self.empate = False
             self.jugador1 = ListaDobleEnlazada()
             self.jugador2 = ListaDobleEnlazada()
+            self.guerra = False
 
 # repartimos el mazo en las dos barajas para cada jugador
         def repartir_cartas(self, mazo):
@@ -82,47 +86,86 @@ class JuegoGuerra:
         
         # FUNCION inicio del juego
         def iniciar_juego(self):
-             mazo = Mazo() #creamos mazo
-             mazo.Mezclar() #mezclamos mazo
-             self.repartir_cartas(mazo) 
+            mazo = Mazo() #creamos mazo
+            mazo.Mezclar() #mezclamos mazo
+            self.repartir_cartas(mazo) 
              
-             # iniciamos TURNOS de combate
-             # while self.jugador1.tamanio > 0 or self.jugador2.tamanio > 0:
-             self.turnos_jugados += 1 #contador de turnos
+            # iniciamos TURNOS de combate
+            # while self.jugador1.tamanio > 0 or self.jugador2.tamanio > 0:
+            # while self.jugador1 or self.jugador2 or self.empate:    
+            self.turnos_jugados += 1 #contador de turnos
              
-             print("-------------------------------------------------") #esto es una barra separadora
-             print("Turno: " + str(self.turnos_jugados))
-             print("Jugador 1: ")
-             fin = ''
-             contador = 1
-             # extraemos las cartas de arriba de cada jugador
-             carta1 = self.jugador1.extraer().dato
-             carta2 = self.jugador2.extraer().dato
-             # for para mostrar las cartas de jugador 1 boca abajo
-             for carta in self.jugador1:
-                 if contador%10 == 0: # logica para mostrar las cartas boca abajo en filas de a 10
-                     fin = '\n'
-                 else:
-                     fin = ''
-                 print(carta.dato.is_boca_abajo(), end=fin)
-                 contador += 1
+            print("-------------------------------------------------") #esto es una barra separadora
+            print("Turno: " + str(self.turnos_jugados))
+            print("Jugador 1: ")
+            fin = ''
+            contador = 1
+            # extraemos las cartas de arriba de cada jugador
+            cartas_en_mesa = ListaDobleEnlazada()
+            
+            carta1 = self.jugador1.extraer().dato
+            carta2 = self.jugador2.extraer().dato
+            carta1.boca_abajo = False
+            carta2.boca_abajo = False
+            cartas_en_mesa.anexar(carta1)
+            cartas_en_mesa.anexar(carta2)
+            
+            # for para mostrar las cartas de jugador 1 boca abajo
 
-             print("\n")
-             print(f'          {carta1}  {carta2}') # mostramos las cartas que combaten
+#----------------logica de guerra----------------------------------------------
+            if carta1.valor == carta2.valor:
+                self.guerra=True
+                for n in range(1,3):
+                    carta1 = self.jugador1.extraer().dato
+                    carta2 = self.jugador2.extraer().dato
+                    cartas_en_mesa.anexar(carta1)
+                    cartas_en_mesa.anexar(carta2)
+                carta1 = self.jugador1.extraer().dato
+                carta2 = self.jugador2.extraer().dato
+                carta1.boca_abajo = False
+                carta2.boca_abajo = False
+                cartas_en_mesa.anexar(carta1)
+                cartas_en_mesa.anexar(carta2)
+#------------------------------------------------------------------------------
+            for carta in self.jugador1:
+                if contador%10 == 0: # logica para mostrar las cartas boca abajo en filas de a 10
+                    fin = '\n'
+                else:
+                    fin = ''
+            # print(carta.dato.is_boca_abajo(), end=fin)
+                if (carta.dato.boca_abajo):
+                    print(carta.dato.poner_boca_abajo(), end=fin)
+                contador += 1
+
+            print("\n")
              
+            print("              ",end="")
+            for carta in cartas_en_mesa:
+                if  not carta.dato.boca_abajo:
+                    print(carta.dato.poner_boca_arriba() + " ", end="")
+                else:
+                    print(carta.dato.poner_boca_abajo() + " ", end="")
+                #print(f'          {carta} {carta2}') # mostramos las cartas que combaten
+
+                 
              # for para mostrar las cartas de jugador 1 boca abajo                
-             print("\n" + "Jugador 2: ")
-             fin = ''
-             contador = 1
-             for carta in self.jugador2:
-                 if contador%10 == 0:
-                     fin = '\n'
-                 else:
-                     fin = ''
-                 print(carta.dato.is_boca_abajo(), end=fin)
-                 contador += 1
-             print("\n")
-             print("-------------------------------------------------")
+            print("\n" + "Jugador 2: ")
+            fin = ''
+            contador = 1
+            for carta in self.jugador2:
+                if contador%10 == 0:
+                    fin = '\n'
+                else:
+                    fin = ''
+                # print(carta.dato.is_boca_abajo(), end=fin)
+                if (carta.dato.boca_abajo):
+                    print(carta.dato.poner_boca_abajo(), end=fin)
+                contador += 1
+            print("\n")
+            print("-------------------------------------------------")
+             
+            #-------------------------logica del juego------------------------
+             
 
 # class JuegoGuerra:
         
