@@ -32,6 +32,10 @@ class Carta:
     def is_boca_abajo(self):
         boca_abajo = True
         print('X')
+        
+    def __str__(self):
+        cadena=self.valor + " "+ self.palo
+        return cadena
 #----------------------------------------
 class Mazo:
     def __init__(self):
@@ -46,6 +50,11 @@ class Mazo:
         random.shuffle(cartas_ordenadas)
         for carta in cartas_ordenadas:
             self.cartas.anexar(carta)
+            
+        def __str__(self):
+           return str(self.cartas)
+            
+                
 
 class JuegoGuerra:
         
@@ -121,10 +130,21 @@ class JuegoGuerra:
 #PRUEBAS
 if __name__ == "__main__":
     
- car = Carta('2','♥')       
+ car = Carta('2','♥')
+ print(car)       
  #car.mostrar_carta()    
  #car.is_boca_arriba()    
- car.is_boca_abajo() 
+ car.is_boca_abajo()
+ 
+ 
+ cartitas=ListaDobleEnlazada()
+ cartitas.anexar(Carta(valores[0],palos[0]))
+ cartitas.anexar(Carta(valores[2],palos[3])) 
+ print(cartitas)
+ mazo = Mazo()  
+ mazo.Mezclar()
+ print(mazo.cartas.extraer(0))
+ mazo
                 
                 
                 
