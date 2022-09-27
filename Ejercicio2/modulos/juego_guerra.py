@@ -144,7 +144,7 @@ if __name__ == "__main__":
  mazo = Mazo()  
  mazo.Mezclar()
  print(mazo.cartas.extraer(0))
- mazo
+ 
                 
                 
                 
