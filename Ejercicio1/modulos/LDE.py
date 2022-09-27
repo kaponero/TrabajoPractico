@@ -11,7 +11,6 @@ class Nodo:
         self.siguiente = None
         self.anterior = None
 
-        
     def __str__(self):
         return str(self.dato)
         
@@ -20,11 +19,6 @@ class InsertarListaError(Exception):
     
 class ExtraerListaError(Exception):
         """error al extraer"""
-
-# except IndexError:
-# print("list index out of range")
-# sys.exit(1)
-
 
 class ListaDobleEnlazada:
     
@@ -68,7 +62,6 @@ class ListaDobleEnlazada:
             esta_vacia = True
         return esta_vacia
     
-            
     #agrega un elemento al inicio de la lista
     # @property
     def agregar(self,dato):
@@ -131,10 +124,7 @@ class ListaDobleEnlazada:
         n.anterior = nuevo_nodo
         self._tamanio += 1
             
-    #elimina y extrae
-    # @property        
-    # def extraer(self,*posicion):
-        
+    #elimina y extrae  
     def extraer(self,posicion=-1):
         if posicion==-1 or posicion== self.tamanio-1 : #elimina y devuelve el item en ultimo posicion
             if self.esta_vacia:
@@ -177,81 +167,10 @@ class ListaDobleEnlazada:
                 else:
                     n.anterior.siguiente = n.siguiente
                     n.siguiente.anterior = n.anterior
-<<<<<<< HEAD
+
                 self._tamanio-=1    
                 return n    
-        
-        
-    # def extraer(self,posicion=-1):
-    #     if len(posicion)==0: #elimina y devuelve el item en ultimo posicion
-    #         if self.esta_vacia:
-    #             raise ExtraerListaError("La lista esta vacia")
-    #             return
-    #         n = self.cabeza 
-    #         if n.siguiente is None:
-    #             self.cabeza = None
-    #             return n.dato
-    #         n = self.cola
-    #         n.anterior.siguiente = None
-    #         self.cola = n.anterior
-    #         return n
-    #     #else: #elimina y devuelve el item en la posicion enviada
-        
-    #     elif posicion[0]==0:
-    #         n = self.cabeza
-    #         n.siguiente.anterior = None
-    #         self.cabeza = n.siguiente
-    #         return n
-    #     elif posicion[0] < 0:
-    #         raise IndexError("list index out of range")
-    #         # raise ExtraerListaError("La posicion no puede ser negativa")
-    #     elif posicion[0] >= self.tamanio:
-    #         raise ExtraerListaError("No existe posicion")
-    #     else:
-    #         pos = 0
-    #         n = self.cabeza
-    #         while pos < posicion[0] and n is not None:
-    #             n = n.siguiente
-    #             pos += 1
-    #         if n is None:
-    #             print("no existe posicion")
-    #         else:
-    #             if n.siguiente is None:
-    #                 n.anterior.siguiente = None
-    #             else:
-    #                 n.anterior.siguiente = n.siguiente
-    #                 n.siguiente.anterior = n.anterior
-    #             return n
-=======
-                return n
- #ESTE ES EL METODO QUE YO (GAby) HABIA PROBADO, PERO EL TEST_EXTRAER_EXTREMOS NO FUNCIONA, EL ERROR QUE ME TIRA ES :AttributeError: 'int' object has no attribute 'dato',
- #no se porque, porque si esta dando un dato
- # def extraer(self,posicion):
-    #     # Verificación de los límites
-    #         if (posicion < 0) or (posicion >= self.tamanio):
-    #             raise IndexError("Índice fuera de rango")
-    #     # Si no se recibió i, se devuelve el último.
-    #         if posicion == None:
-    #             posicion = self.tamanio - 1
-    #     # Caso particular, si es el primero,hay que saltar la cabecera de la lista
-    #         if posicion == 0:
-    #             data = self.cabeza.dato
-    #             self.cabeza = self.cabeza.siguiente
-    #     #porcion de codigo correspondiente a la busqueda
-    #         nodo_ant = self.cabeza
-    #         nodo_actual =nodo_ant.siguiente
-    #         for pos in range(1, posicion):
-    #             nodo_ant = nodo_actual
-    #             nodo_actual = nodo_ant.siguiente
-                
-    #     # Guarda el dato y elimina el nodo a borrar
-    #         data = nodo_actual.dato
-    #         nodo_ant.siguiente = nodo_actual.siguiente
-    #     # hay que restar 1 de tamanio
-    #         self._tamanio = self._tamanio - 1
-    #     # y devolver el valor borrado
-    #         return data
->>>>>>> aae8f4aedc63a151088a9945400ffc971404e7c2
+ 
              
 #---- Realiza una COPIA de la lista elemento a elemento y devuelve la copia-------
     def copiar(self):
@@ -281,8 +200,7 @@ class ListaDobleEnlazada:
         self.cabeza = p
         
 
-        
-#---------- ordena los elemento de menor a mayor ----------
+#---------- ordena los elementos de menor a mayor ----------
 
 # El algoritmo de ordenamiento del método “ordenar” de la Lista debe tener la eficiencia del
 # algoritmo de ordenamiento por inserción, o mejor.(cumple?)
@@ -298,6 +216,7 @@ class ListaDobleEnlazada:
                 p = p.siguiente
             end = p
 
+
 #---------- concatena dos listas enlazadas ----------    
     def concatenar(self, lista):
         self._tamanio += lista.tamanio
@@ -312,9 +231,7 @@ class ListaDobleEnlazada:
     def __add__(self,lista):
         return self.concatenar(lista)
         
-
-    
-    
+ 
 #------------------iterar sobre la lista-------------------------
             
     def __iter__(self):
@@ -334,15 +251,9 @@ class ListaDobleEnlazada:
         cadena += str(nodo.dato) + ']'
         return cadena
     
-#-------------sobrecarga de repr para cambiar ese valor-------------
-    # def __repr__(self):
-    #     nodo = self.cabeza
-    #     cadena = '['
-    #     while nodo.siguiente is not None:
-    #         cadena += str(nodo.dato) +', '
-    #         nodo = nodo.siguiente
-    #     cadena += str(nodo.dato) + ']'
-    #     return cadena
+    
+#--------------------------------------------------------------------
+
 
 if __name__ == "__main__":
     lista = ListaDobleEnlazada()
@@ -371,8 +282,6 @@ if __name__ == "__main__":
     lista.extraer(lista.tamanio-1)
     print(lista)
     
-
-
 
 
 
