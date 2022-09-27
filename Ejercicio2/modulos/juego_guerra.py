@@ -11,6 +11,18 @@ import random
 valores = ['2','3','4','5','6','7','8','9','10','J','Q','K','A']
 palos = ['♠', '♥', '♦', '♣']
 
+#clase CARTA
+class Carta:
+    
+    def __init__ (self,val,pal):
+        self.valor = val
+        self.palo = pal
+        
+        
+    def mostrar_carta(self):
+      print(self.valor + self.palo)
+#----------------------------------------
+
 class JuegoGuerra:
         
         def __init__ (self,semilla):
@@ -81,6 +93,12 @@ class JuegoGuerra:
                     print("-X ",end=fin_de_linea)
                 print("")
                 turno+=1
+ 
+#PRUEBAS
+ if __name__ == "__main__":
+    
+ car = Carta('2','♥')       
+ car.mostrar_carta()    
                 
                 
                 
