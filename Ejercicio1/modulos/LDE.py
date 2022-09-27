@@ -134,8 +134,9 @@ class ListaDobleEnlazada:
     #elimina y extrae
     # @property        
     # def extraer(self,*posicion):
+        
     def extraer(self,posicion=-1):
-        if len(posicion)==0: #elimina y devuelve el item en ultimo posicion
+        if posicion==-1 or posicion== self.tamanio-1 : #elimina y devuelve el item en ultimo posicion
             if self.esta_vacia:
                 raise ExtraerListaError("La lista esta vacia")
                 return
@@ -143,26 +144,29 @@ class ListaDobleEnlazada:
             if n.siguiente is None:
                 self.cabeza = None
                 return n.dato
+                self._tamanio-=1
             n = self.cola
             n.anterior.siguiente = None
             self.cola = n.anterior
+            self._tamanio-=1
             return n
         #else: #elimina y devuelve el item en la posicion enviada
         
-        elif posicion[0]==0:
+        elif posicion==0:
             n = self.cabeza
             n.siguiente.anterior = None
             self.cabeza = n.siguiente
+            self._tamanio-=1
             return n
-        elif posicion[0] < 0:
+        elif posicion < -1:
             raise IndexError("list index out of range")
             # raise ExtraerListaError("La posicion no puede ser negativa")
-        elif posicion[0] >= self.tamanio:
+        elif posicion > self.tamanio:
             raise ExtraerListaError("No existe posicion")
         else:
             pos = 0
             n = self.cabeza
-            while pos < posicion[0] and n is not None:
+            while pos < posicion and n is not None:
                 n = n.siguiente
                 pos += 1
             if n is None:
@@ -173,7 +177,50 @@ class ListaDobleEnlazada:
                 else:
                     n.anterior.siguiente = n.siguiente
                     n.siguiente.anterior = n.anterior
-                return n
+                self._tamanio-=1    
+                return n    
+        
+        
+    # def extraer(self,posicion=-1):
+    #     if len(posicion)==0: #elimina y devuelve el item en ultimo posicion
+    #         if self.esta_vacia:
+    #             raise ExtraerListaError("La lista esta vacia")
+    #             return
+    #         n = self.cabeza 
+    #         if n.siguiente is None:
+    #             self.cabeza = None
+    #             return n.dato
+    #         n = self.cola
+    #         n.anterior.siguiente = None
+    #         self.cola = n.anterior
+    #         return n
+    #     #else: #elimina y devuelve el item en la posicion enviada
+        
+    #     elif posicion[0]==0:
+    #         n = self.cabeza
+    #         n.siguiente.anterior = None
+    #         self.cabeza = n.siguiente
+    #         return n
+    #     elif posicion[0] < 0:
+    #         raise IndexError("list index out of range")
+    #         # raise ExtraerListaError("La posicion no puede ser negativa")
+    #     elif posicion[0] >= self.tamanio:
+    #         raise ExtraerListaError("No existe posicion")
+    #     else:
+    #         pos = 0
+    #         n = self.cabeza
+    #         while pos < posicion[0] and n is not None:
+    #             n = n.siguiente
+    #             pos += 1
+    #         if n is None:
+    #             print("no existe posicion")
+    #         else:
+    #             if n.siguiente is None:
+    #                 n.anterior.siguiente = None
+    #             else:
+    #                 n.anterior.siguiente = n.siguiente
+    #                 n.siguiente.anterior = n.anterior
+    #             return n
              
 #---- Realiza una COPIA de la lista elemento a elemento y devuelve la copia-------
     def copiar(self):
@@ -286,6 +333,12 @@ if __name__ == "__main__":
     lista3 = lista + lista1
     print(lista3)
     print(lista3.tamanio)
+    lista.extraer(-1)
+    print(lista)
+    lista.extraer()
+    print(lista)
+    lista.extraer(lista.tamanio-1)
+    print(lista)
     
 
 
