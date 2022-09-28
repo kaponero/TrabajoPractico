@@ -33,7 +33,7 @@ class Carta:
         return "-X"
         
     def __str__(self):
-        cadena=self.valor + " "+ self.palo
+        cadena=self.valor + self.palo
         return cadena
 #----------- Clase MAZO ------------
 
