@@ -2,7 +2,9 @@
 """
 Created on Mon Sep 19 16:13:56 2022
 
-@author: kapon
+@author:    Gabriela González
+            Maximiliano Pérez Albarracín
+            Alvaro Labanca
 """
 
 class Nodo:
@@ -11,6 +13,7 @@ class Nodo:
         self.siguiente = None
         self.anterior = None
 
+        
     def __str__(self):
         return str(self.dato)
         
@@ -62,49 +65,43 @@ class ListaDobleEnlazada:
             esta_vacia = True
         return esta_vacia
     
+            
     #agrega un elemento al inicio de la lista
     # @property
     def agregar(self,dato):
         nuevo_nodo = Nodo(dato)
-        if self.cabeza is None:
+        if self.esta_vacia: #si esta vacia cola=cabeza
+            self.cabeza = nuevo_nodo
+            self.cola=self.cabeza
+            self._tamanio += 1
+        else:
+            nuevo_nodo.siguiente = self.cabeza
+            self.cabeza.anterior = nuevo_nodo
             self.cabeza = nuevo_nodo
             self._tamanio += 1
-            return
-        if self.cola is None:
-            self.cola = self.cabeza
-        nuevo_nodo.siguiente = self.cabeza
-        self.cabeza.anterior = nuevo_nodo
-        self.cabeza = nuevo_nodo
-        self._tamanio += 1
         
     #insertar elementos al final
     # @property   
     def anexar(self,dato):
-        nuevo_nodo = Nodo(dato)
-        if self.cabeza is None:
-            self.cabeza = nuevo_nodo
+        if self.esta_vacia: #si esta vacia llamo a agregar
+            self.agregar(dato)
+        else:
+            nuevo_nodo = Nodo(dato)
+            self.cola.siguiente = nuevo_nodo
+            nuevo_nodo.anterior = self.cola
+            self.cola = nuevo_nodo            
             self._tamanio += 1
-            return
-        if self.cola is None:
-            self.cola = nuevo_nodo
-            self.cola.anterior = self.cabeza
-            self.cabeza.siguiente = self.cola
-            self._tamanio += 1
-            return
-        nuevo_nodo.anterior = self.cola
-        self.cola.siguiente = nuevo_nodo
-        self.cola = nuevo_nodo
-        self._tamanio += 1
-    
+            
+       
     #insertar un nuevo elemento en una posicion
     # @property
     def insertar(self,posicion,dato):
         pos=0
         n = self.cabeza
-        if posicion == 0:
+        if posicion == 0:   #agregar
             self.agregar(dato)
             return
-        if posicion == self.tamanio:
+        if posicion == self.tamanio: #inserto al final
             self.anexar(dato)
             return
         if posicion < 0:
@@ -124,34 +121,26 @@ class ListaDobleEnlazada:
         n.anterior = nuevo_nodo
         self._tamanio += 1
             
-    #elimina y extrae  
+    #elimina y extrae
+    # @property        
+    # def extraer(self,*posicion):
     def extraer(self,posicion=-1):
-        if posicion==-1 or posicion== self.tamanio-1 : #elimina y devuelve el item en ultimo posicion
-            if self.esta_vacia:
-                raise ExtraerListaError("La lista esta vacia")
-                return
-            n = self.cabeza 
-            if n.siguiente is None:
-                self.cabeza = None
-                return n.dato
-                self._tamanio-=1
+        if posicion==-1 or posicion==self.tamanio-1: #elimina y devuelve el item en ultimo posicion
             n = self.cola
-            n.anterior.siguiente = None
             self.cola = n.anterior
-            self._tamanio-=1
+            self._tamanio -= 1
             return n
         #else: #elimina y devuelve el item en la posicion enviada
-        
         elif posicion==0:
             n = self.cabeza
             n.siguiente.anterior = None
             self.cabeza = n.siguiente
-            self._tamanio-=1
+            self._tamanio -= 1
             return n
         elif posicion < -1:
             raise IndexError("list index out of range")
             # raise ExtraerListaError("La posicion no puede ser negativa")
-        elif posicion > self.tamanio:
+        elif posicion > self.tamanio-1:
             raise ExtraerListaError("No existe posicion")
         else:
             pos = 0
@@ -162,15 +151,10 @@ class ListaDobleEnlazada:
             if n is None:
                 print("no existe posicion")
             else:
-                if n.siguiente is None:
-                    n.anterior.siguiente = None
-                else:
-                    n.anterior.siguiente = n.siguiente
-                    n.siguiente.anterior = n.anterior
-
-                self._tamanio-=1    
-                return n    
- 
+                  n.anterior.siguiente = n.siguiente
+                  n.siguiente.anterior = n.anterior
+                  self._tamanio -=1
+                  return n
              
 #---- Realiza una COPIA de la lista elemento a elemento y devuelve la copia-------
     def copiar(self):
@@ -182,7 +166,7 @@ class ListaDobleEnlazada:
         return lista_copia
 
          
-#---------- invierte el orden de los elementos ----------
+# #---------- invierte el orden de los elementos ----------
     def invertir(self):
         if self.cabeza is None:
             print('NO se puede')
@@ -200,10 +184,11 @@ class ListaDobleEnlazada:
         self.cabeza = p
         
 
-#---------- ordena los elementos de menor a mayor ----------
+        
+# #---------- ordena los elemento de menor a mayor ----------
 
-# El algoritmo de ordenamiento del método “ordenar” de la Lista debe tener la eficiencia del
-# algoritmo de ordenamiento por inserción, o mejor.(cumple?)
+# # El algoritmo de ordenamiento del método “ordenar” de la Lista debe tener la eficiencia del
+# # algoritmo de ordenamiento por inserción, o mejor.(cumple?)
 
     def ordenar(self):
         end = None
@@ -216,8 +201,7 @@ class ListaDobleEnlazada:
                 p = p.siguiente
             end = p
 
-
-#---------- concatena dos listas enlazadas ----------    
+# #---------- concatena dos listas enlazadas ----------    
     def concatenar(self, lista):
         self._tamanio += lista.tamanio
         self.cola.siguiente = lista.cabeza
@@ -226,12 +210,14 @@ class ListaDobleEnlazada:
         return self
         
     
-#----------- sobracarga del operador "+" para concatenar -------
-# la suma de dos cadenas agregara el segundo sumando al primero a = a + b
+# #----------- sobracarga del operador "+" para concatenar -------
+# # la suma de dos cadenas agregara el segundo sumando al primero a = a + b
     def __add__(self,lista):
         return self.concatenar(lista)
         
- 
+
+    
+    
 #------------------iterar sobre la lista-------------------------
             
     def __iter__(self):
@@ -241,7 +227,7 @@ class ListaDobleEnlazada:
             n = n.siguiente
             
 
-#---------------sobrecarga de str para mostrar por pantalla---------
+# #---------------sobrecarga de str para mostrar por pantalla---------
     def __str__(self):
         nodo = self.cabeza
         cadena = '['
@@ -251,37 +237,56 @@ class ListaDobleEnlazada:
         cadena += str(nodo.dato) + ']'
         return cadena
     
-    
-#--------------------------------------------------------------------
-
+# #-------------sobrecarga de repr para cambiar ese valor-------------
+#     # def __repr__(self):
+#     #     nodo = self.cabeza
+#     #     cadena = '['
+#     #     while nodo.siguiente is not None:
+#     #         cadena += str(nodo.dato) +', '
+#     #         nodo = nodo.siguiente
+#     #     cadena += str(nodo.dato) + ']'
+#     #     return cadena
 
 if __name__ == "__main__":
     lista = ListaDobleEnlazada()
     lista1 = ListaDobleEnlazada()
     
-    lista.anexar(90)
-    lista.anexar(50)
-    lista.anexar(30)
-    lista.anexar(10)
-    lista.anexar(10)
-    lista.agregar(-10)
-    print(lista.tamanio)
+    # lista.anexar(90)
+    # lista.anexar(50)
+    # lista.anexar(30)
+    # lista.anexar(10)
+    # lista.anexar(10)
+    # lista.agregar(-10)
+    # print(lista.tamanio)
     
+    # for nodo in lista:
+    #     print(nodo)
+        
+    # lista1.anexar(0)
+    # lista1.anexar(20)
     
-    lista1.anexar(0)
-    lista1.anexar(20)
+    # print(lista)
+    # lista3 = lista + lista1
+    # print(lista3)
+    # print(lista3.tamanio)
     
-    print(lista)
-    lista3 = lista + lista1
-    print(lista3)
-    print(lista3.tamanio)
-    lista.extraer(-1)
-    print(lista)
-    lista.extraer()
-    print(lista)
-    lista.extraer(lista.tamanio-1)
-    print(lista)
-    
-
-
-
+    lista.agregar(3)
+    lista.agregar(2)
+    lista.agregar(1)
+    for nodo in lista:
+        print(nodo)
+    print("")
+    lista1.anexar(1)
+    lista1.anexar(2)
+    lista1.anexar(3)
+    for nodo in lista1:
+        print(nodo)
+    print("")
+    lista1.insertar(1,9)
+    for nodo in lista1:
+        print(nodo)
+    print("")
+    for nodo in lista1:
+        print(lista1.extraer())
+    print("")
+    print(lista1.tamanio)
