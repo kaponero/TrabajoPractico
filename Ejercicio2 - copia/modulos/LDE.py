@@ -92,6 +92,7 @@ class ListaDobleEnlazada:
             self.cola = nuevo_nodo            
             self._tamanio += 1
             
+       
     #insertar un nuevo elemento en una posicion
     # @property
     def insertar(self,posicion,dato):
@@ -182,6 +183,7 @@ class ListaDobleEnlazada:
             q = q.anterior
         self.cabeza = p
         
+
         
 # #---------- ordena los elemento de menor a mayor ----------
 
@@ -235,11 +237,38 @@ class ListaDobleEnlazada:
         cadena += str(nodo.dato) + ']'
         return cadena
     
+# #-------------sobrecarga de repr para cambiar ese valor-------------
+#     # def __repr__(self):
+#     #     nodo = self.cabeza
+#     #     cadena = '['
+#     #     while nodo.siguiente is not None:
+#     #         cadena += str(nodo.dato) +', '
+#     #         nodo = nodo.siguiente
+#     #     cadena += str(nodo.dato) + ']'
+#     #     return cadena
 
 if __name__ == "__main__":
     lista = ListaDobleEnlazada()
     lista1 = ListaDobleEnlazada()
     
+    # lista.anexar(90)
+    # lista.anexar(50)
+    # lista.anexar(30)
+    # lista.anexar(10)
+    # lista.anexar(10)
+    # lista.agregar(-10)
+    # print(lista.tamanio)
+    
+    # for nodo in lista:
+    #     print(nodo)
+        
+    # lista1.anexar(0)
+    # lista1.anexar(20)
+    
+    # print(lista)
+    # lista3 = lista + lista1
+    # print(lista3)
+    # print(lista3.tamanio)
     
     lista.agregar(3)
     lista.agregar(2)

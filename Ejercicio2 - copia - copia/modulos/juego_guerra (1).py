@@ -285,8 +285,7 @@ class Juego_guerra:
 # #PRUEBAS
 if __name__ == "__main__":
     
-    m = Juego_guerra(17)
-    #---numeros de prueba del test---
+    m = Juego_guerra(117)
     # m = Juego_guerra(314)
     # m = Juego_guerra(59)
     # m = Juego_guerra(883)
