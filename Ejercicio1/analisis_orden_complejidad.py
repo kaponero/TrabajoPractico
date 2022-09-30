@@ -19,7 +19,7 @@ lista_LDE = ListaDobleEnlazada()
  #se crea vector de tiempos
 tiempos = [[],[]]
 #creacion de vector para variar tamaño de listas
-valores_n = [10**i for i in range(1,4)]
+valores_n = [10**i for i in range(1,5)]
 
 for n in valores_n:
        
